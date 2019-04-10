@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'util/custom_popup_menu.dart';
 
 import 'ticket_scholarship_screen.dart';
+import 'ticket_event_screen.dart';
+import 'open_class_profile_screen.dart';
 
 List<CustomPopupMenu> choices = <CustomPopupMenu>[
   CustomPopupMenu(title: 'Ubah Profil', icon: Icons.edit),
@@ -78,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Container(
         color: Colors.green,
         child: DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(kToolbarHeight),
@@ -89,13 +91,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Tab(
                     text: "Open Class",
+                  ),
+                  Tab(
+                    text: "Beasiswa",
                   )
                 ],
                 labelColor: Colors.black,
               ),
             ),
             body:
-            TabBarView(children: [ TicketScholarship(), TicketScholarship()]),
+            TabBarView(children: [ TicketEvent(), OpenClassProfile(), TicketScholarship()]),
           ),
         ),
       ),

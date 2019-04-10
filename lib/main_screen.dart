@@ -34,7 +34,11 @@ class _MainState extends State<Main> {
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _cIndex,
-          type: BottomNavigationBarType.shifting,
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.blueAccent,
+          unselectedItemColor: Colors.grey,
+          showSelectedLabels: true,
+          type: BottomNavigationBarType.fixed,
           onTap: incrementTab,
           items: [
             BottomNavigationBarItem(

@@ -12,10 +12,11 @@ class _TicketEventState extends State<TicketEvent> {
       backgroundColor: Colors.white,
       body: ListView(
         padding: EdgeInsets.all(16),
+        scrollDirection: Axis.vertical,
         children: <Widget>[
           _paymentCellItem(),
           _paymentCellItem(),
-          _paymentCellItem()
+          _paymentCellItem(),
         ],
       ),
     );
@@ -26,77 +27,71 @@ class _TicketEventState extends State<TicketEvent> {
       padding: const EdgeInsets.only(bottom: 8, top: 8),
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            child: Image.asset(
-              "images/background.jpg",
-              width: 120,
-              height: 120,
-              fit: BoxFit.fill,
+          Expanded(
+            flex: 5,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Image.asset(
+                "images/background.jpg",
+                width: 120,
+                height: 120,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Expanded(
+              flex: 8,
               child: Container(
-            padding: const EdgeInsets.only(left: 8),
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Pelatihan UMKM Ecommerce",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                padding: const EdgeInsets.only(left: 8),
+                child: Stack(
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Pelatihan UMKM Ecommerce",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                          maxLines: 2,
+                        ),
+                        Text(
+                          "Gratis",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text(
+                            "Kadaluwarsa pada : ",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ),
+                        Text(
+                          "2019-01-24 08:00",
+                          style: TextStyle(fontSize: 14),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  "Gratis",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
-          ))
-        ],
-      ),
-    );
-  }
-
-  _backgroundImage() {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage(
-              'images/background.jpg',
-            ),
-          ),
-        ),
-        height: 350.0,
-      ),
-    );
-  }
-
-  _backgroundOverlay() {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      child: Container(
-        height: 350.0,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            gradient: LinearGradient(
-                begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomCenter,
-                colors: [
-                  Colors.grey.withOpacity(0.0),
-                  Colors.black,
+              )),
+          Expanded(
+            flex: 2,
+              child: Column(
+                children: <Widget>[
+                  Image.asset(
+                    "images/ticket.png",
+                    width: 40,
+                    height: 40,
+                  ),
+                  Text(
+                    "Lunas",
+                    style: TextStyle(fontSize: 14),
+                  )
                 ],
-                stops: [
-                  0.0,
-                  1.0
-                ])),
+              ))
+        ],
       ),
     );
   }
