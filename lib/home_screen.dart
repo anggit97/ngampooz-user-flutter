@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -57,13 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                  child: Text(
+                  child: AutoSizeText(
                     "Beasiswa ini menanti kamu!",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    maxLines: 1,
                   )),
-              Text(
+              AutoSizeText(
                 "Lihat Semua",
-                style: TextStyle(fontSize: 16, color: Colors.blueAccent),
+                style: TextStyle(fontSize: 14, color: Colors.blueAccent),
               )
             ],
           ),
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                AutoSizeText(
                   "Beasiswa Djarum 2019",
                   style: TextStyle(
                       color: Colors.white,
@@ -107,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold),
                   maxLines: 1,
                 ),
-                Text(
+                AutoSizeText(
                   "PT.Bank BCA Tbk",
                   style: TextStyle(
                       color: Colors.white,
@@ -132,11 +134,11 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                  child: Text(
+                  child: AutoSizeText(
                     "Open Class Dari Para Ahli",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   )),
-              Text(
+              AutoSizeText(
                 "Lihat Semua",
                 style: TextStyle(fontSize: 16, color: Colors.blueAccent),
               )
@@ -177,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     topLeft: Radius.circular(10)),
                 color: Color.fromRGBO(88, 175, 248, 1)),
             child: Center(
-              child: Text(
+              child: AutoSizeText(
                 "Open Class",
                 style: TextStyle(color: Colors.white),
               ),
@@ -189,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                AutoSizeText(
                   "Seminar Design Branding Adobe XD",
                   style: TextStyle(
                       color: Colors.white,
@@ -197,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold),
                   maxLines: 1,
                 ),
-                Text(
+                AutoSizeText(
                   "31 Januari, Jalan Kintanami blok c2 nomor 11",
                   style: TextStyle(
                       color: Colors.white,
@@ -205,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.normal),
                   maxLines: 1,
                 ),
-                Text(
+                AutoSizeText(
                   "Rp.150.0000",
                   style: TextStyle(
                       color: Colors.white,
@@ -230,11 +232,11 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                  child: Text(
+                  child: AutoSizeText(
                     "Acara terbaru, Ikutan yuk!",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   )),
-              Text(
+              AutoSizeText(
                 "Lihat Semua",
                 style: TextStyle(fontSize: 16, color: Colors.blueAccent),
               )
@@ -272,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                AutoSizeText(
                   "Seminar Design Branding Adobe XD",
                   style: TextStyle(
                       color: Colors.white,
@@ -280,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold),
                   maxLines: 1,
                 ),
-                Text(
+                AutoSizeText(
                   "31 Januari, Jalan Kintanami blok c2 nomor 11",
                   style: TextStyle(
                       color: Colors.white,
@@ -288,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.normal),
                   maxLines: 1,
                 ),
-                Text(
+                AutoSizeText(
                   "Rp.150.0000",
                   style: TextStyle(
                       color: Colors.white,
@@ -313,11 +315,11 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                  child: Text(
+                  child: AutoSizeText(
                 "Acara terpopuler di Ngampooz",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               )),
-              Text(
+              AutoSizeText(
                 "Lihat Semua",
                 style: TextStyle(fontSize: 16, color: Colors.blueAccent),
               )
@@ -358,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     topLeft: Radius.circular(10)),
                 color: Color.fromRGBO(88, 175, 248, 1)),
             child: Center(
-              child: Text(
+              child: AutoSizeText(
                 "Fitur Baru",
                 style: TextStyle(color: Colors.white),
               ),
@@ -370,7 +372,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                AutoSizeText(
                   "Telah hadir fitur Open Class",
                   style: TextStyle(
                       color: Colors.white,
@@ -378,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
-                Text(
+                AutoSizeText(
                   "Berikan social impect! buka kelas untuk berbagi pengetahuan dengan banyak orang disekitar kamu.",
                   style: TextStyle(
                       color: Colors.white,
