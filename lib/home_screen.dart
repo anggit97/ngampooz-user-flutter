@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+import 'model/events.dart';
+import 'model/open_classes.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<Events> fetchEvents() async {
+    final response = await http.get("https://dev.ngampooz.com/api/acara");
+    if (response.statusCode == 200) {
+      return Events.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+  Future<OpenClasses> fetchOpenClass() async {
+    final response = await http.get("https://dev.ngampooz.com/api/open_class");
+    if (response.statusCode == 200) {
+      return OpenClasses.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: <Widget>[
             _recomendationCell(),
-            _eventCell(),
-            _openClassCell(),
+            _eventCell(fetchEvents()),
+            _openClassCell(fetchOpenClass()),
             _scholarshipCell(),
           ],
         ),
@@ -49,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _scholarshipCell(){
+  _scholarshipCell() {
     return Column(
       children: <Widget>[
         Padding(
@@ -59,10 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               Expanded(
                   child: AutoSizeText(
-                    "Beasiswa ini menanti kamu!",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    maxLines: 1,
-                  )),
+                "Beasiswa ini menanti kamu!",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                maxLines: 1,
+              )),
               AutoSizeText(
                 "Lihat Semua",
                 style: TextStyle(fontSize: 14, color: Colors.blueAccent),
@@ -87,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _scholarshipCellItem(){
+  _scholarshipCellItem() {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10),
       width: 160,
@@ -125,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _openClassCell(){
+  _openClassCell(Future<OpenClasses> fetchOpenClass) {
     return Column(
       children: <Widget>[
         Padding(
@@ -135,9 +161,9 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               Expanded(
                   child: AutoSizeText(
-                    "Open Class Dari Para Ahli",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  )),
+                "Open Class Dari Para Ahli",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              )),
               AutoSizeText(
                 "Lihat Semua",
                 style: TextStyle(fontSize: 16, color: Colors.blueAccent),
@@ -148,21 +174,24 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
           height: 160,
           padding: EdgeInsets.only(top: 10),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              _openClassCellItem(),
-              _openClassCellItem(),
-              _openClassCellItem(),
-              _openClassCellItem(),
-            ],
-          ),
+          child: FutureBuilder<OpenClasses>(
+            future: fetchOpenClass,
+            builder: (context, response){
+              if(response.hasData){
+                return showListOpenClas(response.data.data);
+              }else if(response.hasError){
+                print(response.error);
+                return Text(response.error);
+              }
+              return CircularProgressIndicator();
+            }
+          )
         )
       ],
     );
   }
 
-  _openClassCellItem(){
+  _openClassCellItem(DataListOpenClass data) {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10),
       width: 160,
@@ -192,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 AutoSizeText(
-                  "Seminar Design Branding Adobe XD",
+                  data.judul,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -200,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxLines: 1,
                 ),
                 AutoSizeText(
-                  "31 Januari, Jalan Kintanami blok c2 nomor 11",
+                  data.tanggal,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -208,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxLines: 1,
                 ),
                 AutoSizeText(
-                  "Rp.150.0000",
+                  data.biaya.toString(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -223,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _eventCell(){
+  _eventCell(Future<Events> fetchStatusUpdate) {
     return Column(
       children: <Widget>[
         Padding(
@@ -233,9 +262,9 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               Expanded(
                   child: AutoSizeText(
-                    "Acara terbaru, Ikutan yuk!",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  )),
+                "Acara terbaru, Ikutan yuk!",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              )),
               AutoSizeText(
                 "Lihat Semua",
                 style: TextStyle(fontSize: 16, color: Colors.blueAccent),
@@ -244,23 +273,24 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         Container(
-          height: 160,
-          padding: EdgeInsets.only(top: 10),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              _eventCellItem(),
-              _eventCellItem(),
-              _eventCellItem(),
-              _eventCellItem(),
-            ],
-          ),
-        )
+            height: 160,
+            padding: EdgeInsets.only(top: 10),
+            child: FutureBuilder<Events>(
+              future: fetchStatusUpdate,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return showListEvent(snapshot.data.data);
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return CircularProgressIndicator();
+              },
+            ))
       ],
     );
   }
 
-  _eventCellItem(){
+  _eventCellItem(DataListEvents data) {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10),
       width: 160,
@@ -275,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 AutoSizeText(
-                  "Seminar Design Branding Adobe XD",
+                  data.judul,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -283,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxLines: 1,
                 ),
                 AutoSizeText(
-                  "31 Januari, Jalan Kintanami blok c2 nomor 11",
+                  data.tanggal,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -291,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxLines: 1,
                 ),
                 AutoSizeText(
-                  "Rp.150.0000",
+                  data.biaya.toString(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -433,5 +463,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ])),
       ),
     );
+  }
+
+  showListEvent(List<DataListEvents> data) {
+    return ListView.builder(
+        itemCount: data.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, position) {
+          return _eventCellItem(data[position]);
+        });
+  }
+
+  showListOpenClas(List<DataListOpenClass> data) {
+    return ListView.builder(
+        itemCount: data.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, position) {
+          return _openClassCellItem(data[position]);
+        });
   }
 }
